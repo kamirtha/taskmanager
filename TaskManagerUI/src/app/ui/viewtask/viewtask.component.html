@@ -1,0 +1,85 @@
+<h5>View Tasks</h5>
+
+<p>
+  <a href="/addtask">Add Task</a>
+</p>
+
+<div class="row">
+  <div class="col-6">
+    <div class="form-group">
+      <label for="taskDescription" class="control-label">Task</label>
+      <input type="text" name="taskDescription" class="form-control" [(ngModel)]="searchTask.TaskDescription">
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="form-group">
+      <label for="parentTaskDescription" class="control-text">Parent Task</label>
+      <input type="text" name="parentTaskDescription" class="form-control" [(ngModel)]="searchTask.ParentTaskDescription">
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-3">
+    <div class="form-group">
+      <label for="priorityFrom" class="control-text">Priority From</label>
+      <input type="text" name="priorityFrom" class="form-control" [(ngModel)]="searchTask.PriorityFrom">
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="form-group">
+      <label for="priorityTo" class="control-text">Priority To</label>
+      <input type="text" name="priorityTo" class="form-control" [(ngModel)]="searchTask.PriorityTo">
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="form-group">
+      <label for="startDate" class="control-text">Start Date</label>
+      <input type="date" name="startDate" class="form-control" [(ngModel)]="searchTask.StartDate">
+    </div>
+  </div>
+  <div class="col-3">
+    <div class="form-group">
+      <label for="endDate" class="control-text">End Date</label>
+      <input type="date" name="endDate" class="form-control" [(ngModel)]="searchTask.EndDate">
+    </div>
+  </div>
+</div>
+<br />
+<table class="table table-responsive-sm">
+  <thead>
+    <tr>
+      <th class="w-20">
+        Task
+      </th>
+      <th class="w-20">
+        Parent Task
+      </th>
+      <th class="w-10">
+        Priority
+      </th>
+      <th class="w-10">
+        Start Date
+      </th>
+      <th class="w-10">
+        End Date
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let task of Tasks | filter:searchTask">
+      <td>{{ task.TaskDescription }}</td>
+      <td>{{ task.ParentTaskDescription }}</td>
+      <td>{{ task.Priority }}</td>
+      <td>{{ task.StartDate | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ task.EndDate | date: 'dd/MM/yyyy' }}</td>
+      <td>
+        <div *ngIf="!task.Completed">
+          <button class="btn btn-sm btn-primary" (click)="editTask(task.TaskId)">Edit</button>
+          | <button class="btn btn-sm btn-success" (click)="completeTask(task.TaskId)">Complete</button>
+          | <button class="btn btn-sm btn-danger" (click)="deleteTask(task.TaskId)">Delete</button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,66 @@
+<div class="jumbotron">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-3">
+          <h5>Edit Task</h5>
+  
+          <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+  
+            <div class="form-group">
+              <label for="taskDescription" class="control-label">Task Description</label>
+              <div [ngClass]="{ 'has-error': submitted && f.TaskDescription.errors }">
+                <input type="text" class="form-control" formControlName="TaskDescription" maxlength="80" />
+              </div>
+              <div *ngIf="submitted && f.TaskDescription.errors" class="has-error">
+                <span class="help-block" *ngIf="f.TaskDescription.errors.required">Task Description is required</span>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="parentTask" class="control-label">Parent Task</label>
+              <select class="select-option form-control" formControlName="ParentTaskId">
+                <option class="option" value=""></option>
+                <option class="option" *ngFor="let ptask of ParentTasks" [value]="ptask.TaskId">{{ ptask.TaskDescription }}</option>
+              </select>
+            </div>
+  
+            <div class="form-group">
+              <label for="priority" class="control-label">Priority</label>
+              <div>
+                <input type="range" min="1" max="30" formControlName="Priority" />
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="startDate" class="control-label">Start Date</label>
+              <div [ngClass]="{ 'has-error': submitted && f.StartDate.errors }">
+                <input type="date" class="form-control" formControlName="StartDate" />
+              </div>
+              <div *ngIf="submitted && f.StartDate.errors" class="has-error">
+                <span class="help-block" *ngIf="f.StartDate.errors.required">Start Date is required</span>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <label for="endDate" class="control-label">End Date</label>
+              <div [ngClass]="{ 'has-error': submitted && f.EndDate.errors }">
+                <input type="date" class="form-control" formControlName="EndDate" value="" />
+              </div>
+              <div *ngIf="submitted && f.EndDate.errors" class="has-error">
+                <span class="help-block" *ngIf="f.EndDate.errors.required">End Date is required</span>
+              </div>
+            </div>
+  
+            <div class="form-group">
+              <button class="btn btn-primary">Submit</button>
+            </div>
+  
+            <div class="form-group" *ngIf="submitted && !status" >
+              <span class="has-error help-block"> {{ error }} </span>
+            </div>
+  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
